@@ -10,23 +10,31 @@ function App() {
   const [federationSize, setFederationSize] = useState(0)
   const [btcPubKeys, setBtcPubKeys] = useState([])
 
-  function getFederationSize() {
-    return BRIDGE.methods
-      .getFederationSize()
-      .call()
-      .then((size: number) => setFederationSize(size))
-  }
+  // function getFederationSize() {
+  //   return BRIDGE.methods
+  //     .getFederationSize()
+  //     .call()
+  //     .then((size: number) => setFederationSize(size))
+  // }
 
   async function getBtcPublicKeys() {
-    const requests = []
-    for (let fed = 0; fed < federationSize; fed++) {
-      requests.push(BRIDGE.methods.getFederatorPublicKeyOfType(fed, 'btc').call())
-    }
-    await Promise.all(requests).then((responses) => setBtcPubKeys(responses))
+    BRIDGE.methods
+      .getFederationSize()
+      .call()
+      .then((size: number) => {
+        setFederationSize(size)
+        const requests = []
+        for (let fed = 0; fed < size; fed++) {
+          requests.push(BRIDGE.methods.getFederatorPublicKeyOfType(fed, 'btc').call())
+        }
+        Promise.all(requests)
+          .then((responses) => setBtcPubKeys(responses))
+          .catch((e) => console.log(e))
+      })
   }
 
   useEffect(() => {
-    getFederationSize().then(getBtcPublicKeys)
+    getBtcPublicKeys().catch((e) => console.log(e))
   }, [])
 
   return (
@@ -34,9 +42,11 @@ function App() {
       <h1>PowPeg Dashboard</h1>
       <span>Federation size: {federationSize}</span>
       <ul>
-        {btcPubKeys.map((key) => (
-          <li key={key}>{key}</li>
-        ))}
+        {btcPubKeys.length > 0 ? (
+          btcPubKeys.map((key) => <li key={key}>{key}</li>)
+        ) : (
+          <li>Loading...</li>
+        )}
       </ul>
     </div>
   )
