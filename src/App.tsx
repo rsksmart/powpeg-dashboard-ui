@@ -6,6 +6,7 @@ import { rskAddressFromPublicKey } from './utils/rskAddressFromPublicKey'
 function App() {
   const [btcPubKeys, setBtcPubKeys] = useState<string[]>([])
   const [rskPubKeys, setRskPubKeys] = useState<string[]>([])
+  const [address, setAddress] = useState<string>('')
 
   useEffect(() => {
     getBtcPublicKeys()
@@ -17,11 +18,8 @@ function App() {
   }, [])
 
   return (
-    <table>
+    <table className="table">
       <thead>
-        <tr>
-          <th colSpan={4}>PowPeg Dashboard</th>
-        </tr>
         <tr>
           <th>Index</th>
           <th>Bitcoin public key</th>
@@ -35,7 +33,15 @@ function App() {
             <td>{index + 1}</td>
             <td>{btcKey}</td>
             <td>{rskPubKeys[index]}</td>
-            <td>{rskAddressFromPublicKey(rskPubKeys[index])}</td>
+            <td onClick={(e) => setAddress(e.target.innerHTML)}>
+              <a
+                target="_blank"
+                href={`https://explorer.rsk.co/address/${address}`}
+                rel="noreferrer"
+              >
+                0x{rskAddressFromPublicKey(rskPubKeys[index])}
+              </a>
+            </td>
           </tr>
         ))}
       </tbody>
