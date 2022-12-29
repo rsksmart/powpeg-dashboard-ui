@@ -6,7 +6,6 @@ import { rskAddressFromPublicKey } from './utils/rskAddressFromPublicKey'
 function App() {
   const [btcPubKeys, setBtcPubKeys] = useState<string[]>([])
   const [rskPubKeys, setRskPubKeys] = useState<string[]>([])
-  const [address, setAddress] = useState<string>('')
 
   useEffect(() => {
     getBtcPublicKeys()
@@ -16,6 +15,8 @@ function App() {
       .then((keys) => setRskPubKeys(keys))
       .catch((err) => console.log(err))
   }, [])
+
+  if (btcPubKeys.length === 0 || rskPubKeys.length === 0) return <p>Loading...</p>
 
   return (
     <table className="table">
@@ -33,10 +34,12 @@ function App() {
             <td>{index + 1}</td>
             <td>{btcKey}</td>
             <td>{rskPubKeys[index]}</td>
-            <td onClick={(e) => setAddress(e.target.innerHTML)}>
+            <td>
               <a
                 target="_blank"
-                href={`https://explorer.rsk.co/address/${address}`}
+                href={`https://explorer.rsk.co/address/0x${rskAddressFromPublicKey(
+                  rskPubKeys[index]
+                )}`}
                 rel="noreferrer"
               >
                 0x{rskAddressFromPublicKey(rskPubKeys[index])}
