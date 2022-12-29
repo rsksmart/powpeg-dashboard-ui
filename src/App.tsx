@@ -1,22 +1,22 @@
-import './App.css'
-import { useEffect, useState } from 'react'
-import { getBtcPublicKeys, getRskPublicKeys } from './services/getPublicKeys'
-import { rskAddressFromPublicKey } from './utils/rskAddressFromPublicKey'
+import './App.css';
+import { useEffect, useState } from 'react';
+import { getBtcPublicKeys, getRskPublicKeys } from './services/getPublicKeys';
+import { rskAddressFromPublicKey } from './utils/rskAddressFromPublicKey';
 
 function App() {
-  const [btcPubKeys, setBtcPubKeys] = useState<string[]>([])
-  const [rskPubKeys, setRskPubKeys] = useState<string[]>([])
+  const [btcPubKeys, setBtcPubKeys] = useState<string[]>([]);
+  const [rskPubKeys, setRskPubKeys] = useState<string[]>([]);
 
   useEffect(() => {
     getBtcPublicKeys()
       .then((keys) => setBtcPubKeys(keys))
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
     getRskPublicKeys()
       .then((keys) => setRskPubKeys(keys))
-      .catch((err) => console.log(err))
-  }, [])
+      .catch((err) => console.log(err));
+  }, []);
 
-  if (btcPubKeys.length === 0 || rskPubKeys.length === 0) return <p>Loading...</p>
+  if (btcPubKeys.length === 0 || rskPubKeys.length === 0) return <p>Loading...</p>;
 
   return (
     <table className="table">
@@ -49,7 +49,7 @@ function App() {
         ))}
       </tbody>
     </table>
-  )
+  );
 }
 
-export default App
+export default App;

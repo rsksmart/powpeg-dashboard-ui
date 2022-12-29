@@ -1,3 +1,3 @@
-import { bridgeMethods } from './settings'
+import { bridgeMethods } from './settings';
 
-export const getFederationSize = bridgeMethods.getFederationSize().call()
+export const getFederationSize = bridgeMethods.getFederationSize().call();
