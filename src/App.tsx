@@ -19,7 +19,7 @@ function App() {
   if (btcPubKeys.length === 0 || rskPubKeys.length === 0) return <p>Loading...</p>;
 
   return (
-    <table className="table">
+    <table className="table" data-testid="btc-rsk-addresses-table">
       <thead>
         <tr>
           <th>Index</th>
