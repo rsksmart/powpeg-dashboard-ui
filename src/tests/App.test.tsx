@@ -28,3 +28,11 @@ test('renders content', async () => {
     `<td>${mockedAddress}</td>`
   );
 });
+
+test('render the exact amount of columns', async () => {
+  render(<App/>);
+  expect(await screen.findByTestId('btc-rsk-addresses-table')).toContainHTML('<th>Index</th>')
+  expect(await screen.findByTestId('btc-rsk-addresses-table')).toContainHTML('<th>Bitcoin public key</th>')
+  expect(await screen.findByTestId('btc-rsk-addresses-table')).toContainHTML('<th>RSK public key</th>')
+  expect(await screen.findByTestId('btc-rsk-addresses-table')).toContainHTML('<th>Address</th>')
+})
