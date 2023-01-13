@@ -32,8 +32,8 @@ function App() {
         {btcPubKeys.map((btcKey, index) => (
           <tr key={btcKey}>
             <td>{index + 1}</td>
-            <td>{btcKey}</td>
-            <td>{rskPubKeys[index]}</td>
+            <td>{btcKey.slice(0,8)}...{btcKey.slice(62,68)}</td>
+            <td>{rskPubKeys[index].slice(0,8)}...{rskPubKeys[index].slice(62,68)}</td>
             <td>
               <a
                 target="_blank"
@@ -42,7 +42,7 @@ function App() {
                 )}`}
                 rel="noreferrer"
               >
-                0x{rskAddressFromPublicKey(rskPubKeys[index])}
+                0x{rskAddressFromPublicKey(rskPubKeys[index]).slice(0,6)}...{rskAddressFromPublicKey(rskPubKeys[index]).slice(36,42)}
               </a>
             </td>
           </tr>
@@ -53,3 +53,4 @@ function App() {
 }
 
 export default App;
+7
