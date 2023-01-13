@@ -42,7 +42,7 @@ function App() {
                 )}`}
                 rel="noreferrer"
               >
-                0x{rskAddressFromPublicKey(rskPubKeys[index]).slice(0,6)}...{rskAddressFromPublicKey(rskPubKeys[index]).slice(36,42)}
+                0x{rskAddressFromPublicKey(rskPubKeys[index]).slice(0,6)}...{rskAddressFromPublicKey(rskPubKeys[index]).slice(34,40)}
               </a>
             </td>
           </tr>
@@ -53,4 +53,3 @@ function App() {
 }
 
 export default App;
-7
